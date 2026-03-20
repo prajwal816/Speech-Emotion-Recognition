@@ -1,0 +1,42 @@
+# Core settings
+experiment_name: "cnn_lstm_baseline"
+seed: 42
+
+# Data parameters
+data:
+  sample_rate: 16000
+  duration: 3.0 # seconds
+  n_mels: 128
+  n_mfcc: 40
+  hop_length: 512
+  n_fft: 1024
+  augmentation:
+    noise_snr_min: 0
+    noise_snr_max: 15
+    apply_prob: 0.5
+  batch_size: 32
+  num_workers: 4
+
+# Model parameters
+model:
+  type: "cnn_lstm"
+  cnn_filters: [32, 64, 128, 256]
+  lstm_hidden_size: 128
+  lstm_num_layers: 2
+  dropout: 0.3
+  num_classes: 6 # e.g., angry, happy, sad, neutral, fear, disgust
+
+# Training parameters
+training:
+  epochs: 50
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  patience: 10 # Early stopping patience
+  checkpoint_dir: "experiments/checkpoints"
+  log_dir: "experiments/logs"
+
+# Paths
+paths:
+  train_data: "data/train"
+  val_data: "data/val"
+  test_data: "data/test"
